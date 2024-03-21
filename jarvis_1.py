@@ -16,7 +16,7 @@ import requests
 import subprocess
 from email.message import EmailMessage
 import smtplib
-# from decouple import config
+from decouple import config
 
 # Initialize the pyttsx3 engine
 engine = pyttsx3.init('sapi5')
@@ -79,7 +79,7 @@ def send_email(receiver_address, subject, message):
         print(e)
         return False
 
-# Getting the weather API key 
+# Getting the weather API key from any site or we can do webscrapping
     
 OPENWEATHER_APP_ID = config("OPENWEATHER_APP_ID")
 
