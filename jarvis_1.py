@@ -56,37 +56,41 @@ def takeCommand():
         return "None"
     return query
 
-# EMAIL = config("EMAIL")
-# PASSWORD = config("PASSWORD")
+# To send emails we need to have permission from the google by creating an account on google cloud..@having an subscription incloud
+
+EMAIL = config("EMAIL")
+PASSWORD = config("PASSWORD")
 
 
-# def send_email(receiver_address, subject, message):
-#     try:
-#         email = EmailMessage()
-#         email['To'] = receiver_address
-#         email["Subject"] = subject
-#         email['From'] = EMAIL
-#         email.set_content(message)
-#         s = smtplib.SMTP("smtp.gmail.com", 587)
-#         s.starttls()
-#         s.login(EMAIL, PASSWORD)
-#         s.send_message(email)
-#         s.close()
-#         return True
-#     except Exception as e:
-#         print(e)
-#         return False
+def send_email(receiver_address, subject, message):
+    try:
+        email = EmailMessage()
+        email['To'] = receiver_address
+        email["Subject"] = subject
+        email['From'] = EMAIL
+        email.set_content(message)
+        s = smtplib.SMTP("smtp.gmail.com", 587)
+        s.starttls()
+        s.login(EMAIL, PASSWORD)
+        s.send_message(email)
+        s.close()
+        return True
+    except Exception as e:
+        print(e)
+        return False
+
+# Getting the weather API key 
     
-# OPENWEATHER_APP_ID = config("OPENWEATHER_APP_ID")
+OPENWEATHER_APP_ID = config("OPENWEATHER_APP_ID")
 
 
-# def get_weather_report(city):
-#     res = requests.get(
-#         f"http://api.openweathermap.org/data/2.5/weather?q={city}&appid={OPENWEATHER_APP_ID}&units=metric").json()
-#     weather = res["weather"][0]["main"]
-#     temperature = res["main"]["temp"]
-#     feels_like = res["main"]["feels_like"]
-#     return weather, f"{temperature}℃", f"{feels_like}℃"
+def get_weather_report(city):
+    res = requests.get(
+        f"http://api.openweathermap.org/data/2.5/weather?q={city}&appid={OPENWEATHER_APP_ID}&units=metric").json()
+    weather = res["weather"][0]["main"]
+    temperature = res["main"]["temp"]
+    feels_like = res["main"]["feels_like"]
+    return weather, f"{temperature}℃", f"{feels_like}℃"
     
 
 def search_on_google(query):
@@ -164,15 +168,7 @@ if __name__ == "__main__":
             songs = os.listdir(music_dir)
             os.startfile(os.path.join(music_dir, random.choice(songs)))
         
-        # # Play a specific movie
-        # elif 'play iron man movie' in query:
-        #     npath = "E:\ironman.mkv"
-        #     os.startfile(npath)
-        
-        # # Close movie player
-        # elif 'close movie' in query:
-        #     os.system("taskkill /f /im vlc.exe")
-        
+               
         # Close music player
         elif 'close music' in query:
             os.system("taskkill /f /im vlc.exe")
@@ -192,7 +188,6 @@ if __name__ == "__main__":
         
         # Lock the system
         elif "lock the system" in query:
-            # os.system("rundll32.exe powrprof.dll,SetSuspendState 0,1,0")
             os.system("rundll32.exe user32.dll,LockWorkStation")
 
         elif "open notepad" in query:
